@@ -1,9 +1,11 @@
 config.js
-static/js/config.js
+.static/js/config.js
 /static/js/config.js
 ../static/js/config.js
 /Users/ccbernal/Desktop/Leaflet-Challenge/static/js/config.js
 static/js/config.js
+.config.js
+*config.js
 
 .DS_Store
 
