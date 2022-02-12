@@ -1,3 +1,10 @@
+config.js
+static/js/config.js
+/static/js/config.js
+../static/js/config.js
+/Users/ccbernal/Desktop/Leaflet-Challenge/static/js/config.js
+static/js/config.js
+
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
