@@ -3,15 +3,76 @@ var earthquakeurl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/a
 var tectonicplatesurl = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
 
 
-d3.json(earthquakeurl).then(function(data){
-    createFeatures(data.features);
+d3.json(earthquakeurl).then(function(earthquakeData){
+    createFeatures(earthquakeData.features);
 });
 
 function createFeatures(earthquakeData) {
-    function onEachFeature(feature, layer) {
-        layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+    // circle / marker size
+    function markerSize(magnitude) {
+        switch (true) {
+        case magnitude > 5.23875:
+            return 25;
+        case magnitude > 4.2775:
+            return 20;
+        case magnitude > 2.355:
+            return 15;
+        case magnitude > 0.4325:
+            return 10;
+        case magnitude > -1.49:
+            return 5;
+        }
     }
+    function markerDepth(depth) {
+        switch (true) {
+        case depth > 100:
+            return 1;
+        case depth > 60:
+            return .8;
+        case depth > 30:
+            return .7;
+        case depth > 10:
+            return .6;
+        case depth > 0:
+            return .5;
+        }
+    }
+    // marker attributes
+    function styleInfo(feature) {
+        return {
+            opacity: 0.6,
+            fillOpacity: markerDepth(feature.geometry.coordinates[2]),
+            fillColor: chooseColor(feature.properties.mag),
+            color: "black",
+            radius: markerSize(feature.properties.mag),
+            stroke: true,
+            weight: 1
+        };
+    }
+    // Function to Determine Color of Marker Based on the Magnitude of the Earthquake
+    function chooseColor(magnitude) {
+        switch (true) {
+        case magnitude > 5.23875:
+            return "hsl(0, 81%, 42%)";
+        case magnitude > 4.2775:
+            return "hsl(15, 63%, 51%)";
+        case magnitude > 2.355:
+            return "hsl(37, 86%, 45%)";
+        case magnitude > 0.4325:
+            return "hsl(90, 88%, 47%)";
+        case magnitude > -1.49:
+            return "hsl(98, 50%, 53%)";
+        }
+    }
+    function onEachFeature(feature, layer) {
+        layer.bindPopup(`<h1>${feature.properties.mag} Magnitude</h1><hr><h3>${feature.properties.place}<br>Elevation: ${feature.geometry.coordinates[2]} ft. above Sea Level</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+    }
+
     var earthquakes = L.geoJSON(earthquakeData, {
+        pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng);
+        },
+        style: styleInfo,
         onEachFeature: onEachFeature
     });
     createMap(earthquakes);
