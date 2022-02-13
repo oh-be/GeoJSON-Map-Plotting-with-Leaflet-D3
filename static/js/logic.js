@@ -1,11 +1,21 @@
 // URLs
 var earthquakeurl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
-var tplateurl = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
+var url2 = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json'
 
 var layers = {
     earthquakes: new L.LayerGroup(),
     plates: new L.LayerGroup()
 }
+// d3.json(tplateurl, function (data) {
+//     createFeatures(data.features.geometry.coordinates);
+//     plates = L.geoJson(data, {
+//         color: "#white",
+//         weight: 4
+//     // Add plateData to tectonicPlates LayerGroups 
+//         }).addTo(layers.plates);
+//     // Add tectonicPlates Layer to the Map
+//     createMap(layers.plates);
+// });
 
 d3.json(earthquakeurl).then(function (earthquakeData) {
     createFeatures(earthquakeData.features);
@@ -63,13 +73,13 @@ d3.json(earthquakeurl).then(function (earthquakeData) {
                 case magnitude > 2.355:
                     return "hsl(37, 86%, 45%)";
                 case magnitude > 0.4325:
-                    return "hsl(90, 88%, 47%)";
-                case magnitude > -1.49:
                     return "hsl(98, 50%, 53%)";
+                case magnitude > -1.49:
+                    return "hsl(90, 88%, 47%)";
             }
         }
         function onEachFeature(feature, layer) {
-            layer.bindPopup(`<h1>${feature.properties.mag} Magnitude</h1><hr><h3>${feature.properties.place}<br>Elevation: ${feature.geometry.coordinates[2]} ft. above Sea Level</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+            layer.bindPopup(`<h1>${feature.properties.mag} Magnitude</h1><hr><h3>${feature.properties.place}<br>Elevation: ${feature.geometry.coordinates[2]} (km)</h3><hr><p>${new Date(feature.properties.time)}</p>`);
         }
 
         earthquakes = L.geoJSON(earthquakeData, {
@@ -79,16 +89,16 @@ d3.json(earthquakeurl).then(function (earthquakeData) {
             style: styleInfo,
             onEachFeature: onEachFeature
         });
-        d3.json(tplateurl, function (data) {
-            createFeatures(data.features);
-            plates = L.geoJson(data, {
-                color: "#white",
-                weight: 4
-                // Add plateData to tectonicPlates LayerGroups 
-                }).addTo(layers.plates);
-                // Add tectonicPlates Layer to the Map
-                createMap(plates);
-            });
+        // d3.json(tplateurl, function (data) {
+        //     createFeatures(data.features);
+        //     plates = L.geoJson(data, {
+        //         color: "#white",
+        //         weight: 4
+        //         // Add plateData to tectonicPlates LayerGroups 
+        //         }).addTo(layers.plates);
+        //         // Add tectonicPlates Layer to the Map
+        //         createMap(plates);
+        //     });
         createMap(earthquakes);
     }
 });
@@ -119,10 +129,15 @@ function createMap(earthquakes) {
     };
 
     // Create an overlay object to hold our overlay.
+    d3.json(url2, function (data) {
+        layers.plates = L.geoJSON(data);
+    });
+
     var overlayMaps = {
         'Earthquakes': earthquakes,
         'Tectonic Plates': layers.plates
     };
+    
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
     var myMap = L.map("map", {
@@ -137,11 +152,11 @@ function createMap(earthquakes) {
     legend.onAdd = function(myMap) {
         var div = L.DomUtil.create("div", "legend");
         div.innerHTML += "<h4>Magnitude</h4>";
-        div.innerHTML += '<i style="background: hsl(0, 81%, 42%)"></i><span>>5</span><br>';
-        div.innerHTML += '<i style="background: hsl(15, 63%, 51%)"></i><span>4</span><br>';
-        div.innerHTML += '<i style="background: hsl(37, 86%, 45%)"></i><span>3</span><br>';
-        div.innerHTML += '<i style="background: hsl(90, 88%, 47%)"></i><span>2</span><br>';
-        div.innerHTML += '<i style="background: hsl(98, 50%, 53%)"></i><span><1</span><br>';
+        div.innerHTML += '<i style="background: hsl(0, 81%, 42%)"></i><span>> 5.23875 ></span><br>';
+        div.innerHTML += '<i style="background: hsl(15, 63%, 51%)"></i><span>> 4.2775 ></span><br>';
+        div.innerHTML += '<i style="background: hsl(37, 86%, 45%)"></i><span>> 2.355 ></span><br>';
+        div.innerHTML += '<i style="background: hsl(98, 50%, 53%)"></i><span>> 0.4325 ></span><br>';
+        div.innerHTML += '<i style="background: hsl(90, 88%, 47%)"></i><span>> -1.49 ></span><br>';
         // div.innerHTML += '<i class="icon" style="background-image: url(https://d30y9cdsu7xlg0.cloudfront.net/png/194515-200.png);background-repeat: no-repeat;"></i><span>Grænse</span><br>';
         
         
