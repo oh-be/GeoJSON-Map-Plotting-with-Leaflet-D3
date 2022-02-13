@@ -6,16 +6,7 @@ var layers = {
     earthquakes: new L.LayerGroup(),
     plates: new L.LayerGroup()
 }
-// d3.json(tplateurl, function (data) {
-//     createFeatures(data.features.geometry.coordinates);
-//     plates = L.geoJson(data, {
-//         color: "#white",
-//         weight: 4
-//     // Add plateData to tectonicPlates LayerGroups 
-//         }).addTo(layers.plates);
-//     // Add tectonicPlates Layer to the Map
-//     createMap(layers.plates);
-// });
+
 
 d3.json(earthquakeurl).then(function (earthquakeData) {
     createFeatures(earthquakeData.features);
