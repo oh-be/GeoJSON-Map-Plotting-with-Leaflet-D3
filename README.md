@@ -1,4 +1,4 @@
-Cleck out my live Leaflet Visualization [here](https://oh-be.github.io/GeoJSON-Map-Plotting-with-Leaflet-D3/) !!
+Cleck out my live and interactive Visualization [here](https://oh-be.github.io/GeoJSON-Map-Plotting-with-Leaflet-D3/) !!
 
 # Visualizing Data with Leaflet
 
