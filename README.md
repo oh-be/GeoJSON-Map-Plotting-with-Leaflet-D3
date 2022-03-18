@@ -10,11 +10,11 @@ The USGS is responsible for providing scientific data about natural hazards, the
 
 The USGS is interested in building a new set of tools that will allow them to visualize their earthquake data. They collect a massive amount of data from all over the world each day, but they lack a meaningful way of displaying it. Their hope is that being able to visualize their data will allow them to better educate the public and other government organizations (and hopefully secure more funding) on issues facing our planet.
 
-### Level 1: Basic Visualization
+### Plotting the Data
 
 ![2-BasicMap](Images/2-BasicMap.png)
 
-Here's a screenshot of an earthquake data set used during production. Note: on the live [webpage](https://oh-be.github.io/Leaflet-Challenge/), this data is live (past 7 days).
+Here's a screenshot of an earthquake data set used during production. Note: on the live [webpage](https://oh-be.github.io/Leaflet-Challenge/), this data is live (previous 7 days).
 
 1. **Getting the data**
 
