@@ -1,4 +1,4 @@
-Cleck out my live Leaflet Visualization [here](https://oh-be.github.io/Leaflet-Challenge/) !!
+Cleck out my live Leaflet Visualization [here](https://oh-be.github.io/GeoJSON-Map-Plotting-with-Leaflet-D3/) !!
 
 # Visualizing Data with Leaflet
 
@@ -14,7 +14,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ![2-BasicMap](Images/2-BasicMap.png)
 
-Here's a screenshot of an earthquake data set used during production. Note: on the live [webpage](https://oh-be.github.io/Leaflet-Challenge/), this data is live (previous 7 days).
+Here's a screenshot of an earthquake data set used during production. Note: on the live [webpage](https://oh-be.github.io/GeoJSON-Map-Plotting-with-Leaflet-D3/), this data is live (previous 7 days).
 
 1. **Getting the data**
 
